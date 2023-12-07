@@ -1,0 +1,108 @@
+﻿@model AtanaCompanyWeb.Models.Order
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<<h1>Delete Order</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Orderdate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Orderdate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Requireddate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Requireddate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shippeddate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shippeddate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Freight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Freight)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipaddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipaddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipcity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipcity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipregion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipregion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shippostalcode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shippostalcode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipcountry)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipcountry)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cust)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cust.Custid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emp.Empid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipper)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipper.Shipperid)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Orderid" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-controller="Orders" asp-action="Index" class="btn btn-secondary" style="width:120px">
+            Back To List
+        </a>
+    </form>
+</div>
+
+@* "add client side validation" *@
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

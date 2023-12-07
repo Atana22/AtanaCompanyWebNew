@@ -1,0 +1,104 @@
+﻿@model AtanaCompanyWeb.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details Order</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Orderdate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Orderdate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Requireddate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Requireddate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shippeddate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shippeddate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Freight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Freight)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipaddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipaddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipcity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipcity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipregion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipregion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shippostalcode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shippostalcode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipcountry)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipcountry)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cust)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cust.Custid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Emp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Emp.Empid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Shipper)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipper.Shipperid)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Orderid" style="width:120px"> </a> |
+    <a asp-controller="Orders" asp-action="Index" class="btn btn-secondary" style="width:120">
+        Back To List
+    </a>
+</div>
+
+@* "add client side validation" *@
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

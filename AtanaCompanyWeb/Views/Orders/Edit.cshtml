@@ -1,0 +1,94 @@
+﻿@model AtanaCompanyWeb.Models.Order
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Order</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="All"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Orderid" />
+            <div class="form-group">
+                <label asp-for="Custid" class="control-label"></label>
+                <select asp-for="Custid" class="form-control" asp-items="ViewBag.Custid"></select>
+                <span asp-validation-for="Custid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Empid" class="control-label"></label>
+                <select asp-for="Empid" class="form-control" asp-items="ViewBag.Empid"></select>
+                <span asp-validation-for="Empid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Orderdate" class="control-label"></label>
+                <input asp-for="Orderdate" class="form-control" />
+                <span asp-validation-for="Orderdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Requireddate" class="control-label"></label>
+                <input asp-for="Requireddate" class="form-control" />
+                <span asp-validation-for="Requireddate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shippeddate" class="control-label"></label>
+                <input asp-for="Shippeddate" class="form-control" />
+                <span asp-validation-for="Shippeddate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shipperid" class="control-label"></label>
+                <select asp-for="Shipperid" class="form-control" asp-items="ViewBag.Shipperid"></select>
+                <span asp-validation-for="Shipperid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Freight" class="control-label"></label>
+                <input asp-for="Freight" class="form-control" />
+                <span asp-validation-for="Freight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shipname" class="control-label"></label>
+                <input asp-for="Shipname" class="form-control" />
+                <span asp-validation-for="Shipname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shipaddress" class="control-label"></label>
+                <input asp-for="Shipaddress" class="form-control" />
+                <span asp-validation-for="Shipaddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shipcity" class="control-label"></label>
+                <input asp-for="Shipcity" class="form-control" />
+                <span asp-validation-for="Shipcity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shipregion" class="control-label"></label>
+                <input asp-for="Shipregion" class="form-control" />
+                <span asp-validation-for="Shipregion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shippostalcode" class="control-label"></label>
+                <input asp-for="Shippostalcode" class="form-control" />
+                <span asp-validation-for="Shippostalcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shipcountry" class="control-label"></label>
+                <input asp-for="Shipcountry" class="form-control" />
+                <span asp-validation-for="Shipcountry" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-warning" style="width:120px">Update</button>
+            <a asp-controller="Orders" asp-action="Index" class="btn btn-secondary" style="width:120px">
+                Back To List
+            </a>
+        </form>
+    </div>
+</div>
+
+@* "add client side validation" *@
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

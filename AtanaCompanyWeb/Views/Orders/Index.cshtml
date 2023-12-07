@@ -1,0 +1,130 @@
+﻿@model IEnumerable<AtanaCompanyWeb.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@* @if (TempData["success"] != null)  -> napravili smo novi view (_Notiication) i sad njega mozemo da implmeniramo u sve view => <partil name="_Notification"/>
+{
+    <h2>@TempData["success"]</h2> -> success -> mora da ima isti tag name kao u contolleru
+}
+
+<partial name="_Notification" />  -> prebacili u _Layout view
+ *@
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Orders List</h1>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle-fill"></i> &nbsp; Create New Order</a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orderid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orderdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Requireddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shippeddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Freight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipaddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipcity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipregion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shippostalcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipcountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cust)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipper)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Orderid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Orderdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requireddate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shippeddate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Freight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipaddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipcity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipregion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shippostalcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipcountry)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cust.Custid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emp.Empid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipper.Shipperid)
+                </td>
+                <td>
+                    @* Ovde definisemo path za action metode iz contolera - asp-route-id *@
+
+                    <a asp-action="Edit" asp-route-id="@item.Orderid" class="bi bi-pencil-fill" style="width:50px"></a> @* ITEM je gore iz foreach petlje tj path*@
+                    <a asp-action="Details" asp-route-id="@item.Orderid" class="bi bi-journal-text" style="width:50px"></a>
+                    <a asp-action="Delete" asp-route-id="@item.Orderid" class="bi bi-trash3-fill" style="width:50px"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
