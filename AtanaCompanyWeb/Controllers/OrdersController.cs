@@ -21,7 +21,7 @@ namespace AtanaCompanyWeb.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var tEST_DOOContext = _context.Orders.Include(o => o.Cust).Include(o => o.Emp).Include(o => o.Shipper);
+            var tEST_DOOContext = _context.Orders.Include(o => o.Cust).Include(o => o.Emp).Include(o => o.Shipper).Include(o => o.OrderDetails);
             return View(await tEST_DOOContext.ToListAsync());
         }
 
