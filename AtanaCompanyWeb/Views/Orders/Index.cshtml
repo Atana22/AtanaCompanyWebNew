@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AtanaCompanyWeb.Models.Order>
+﻿@model PaginatedList<Order>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,61 +12,80 @@
 <partial name="_Notification" />  -> prebacili u _Layout view
  *@
 
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h1>Orders List</h1>
         </div>
+
         <div class="col-6 text-end">
-            <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle-fill"></i> &nbsp; Create New Order</a>
+            <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle-fill"> </i> &nbsp; Create New Order</a>
         </div>
     </div>
 </div>
+
+
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
+    Previous
+</a>
+
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
+    Next
+</a>
+
+<tr>
+
+</tr>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Orderid)
+                Orderid
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orderdate)
+                Orderdate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requireddate)
+                Requireddate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shippeddate)
+                Shippeddate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Freight)
+                Freight
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shipname)
+                Shipname
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shipaddress)
+                Shipaddress
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shipcity)
+                Shipcity
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shipregion)
+                Shipregion
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shippostalcode)
+                Shippostalcode
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shipcountry)
+                Shipcountry
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cust)
+                Cust
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Emp)
+                Emp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shipper)
+                Shipper
             </th>
             <th></th>
         </tr>
@@ -128,3 +147,13 @@
         }
     </tbody>
 </table>
+
+
+
+<a asp-action="Index" asp-route-pageNumber ="@(Model.PageIndex-1)" class ="btn btn-default @prevDisabled">
+    Previous
+</a>
+
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
+    Next
+</a>

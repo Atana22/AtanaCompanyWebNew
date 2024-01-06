@@ -19,10 +19,15 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
+            int pageSize = 20;
+
             var tEST_DOOContext = _context.Orders.Include(o => o.Cust).Include(o => o.Emp).Include(o => o.Shipper).Include(o => o.OrderDetails);
-            return View(await tEST_DOOContext.ToListAsync());
+
+            //return View(await tEST_DOOContext.ToListAsync());
+
+            return View(PaginatedList<Order>.Create(tEST_DOOContext.ToList(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Orders/Details/5
