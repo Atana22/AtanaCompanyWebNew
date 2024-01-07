@@ -21,15 +21,16 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index(int? pageNumber, int? searchOrderId)
+        public async Task<IActionResult> Index(int? pageNumber, int? searchOrderPrefix)
         {
             int pageSize = 20; //broj linija po starni
 
-            var tEST_DOOContext = _context.Orders.AsQueryable();
+            var tEST_DOOContext = _context.Orders.AsQueryable(); //mora sam da castujem tEST_DOOContext posto nije hteo da radi where, ako su pre njega INCLUDE
 
-            if (searchOrderId.HasValue && searchOrderId.Value != 0)
+            if (searchOrderPrefix.HasValue && searchOrderPrefix.Value != 0)
             {
-                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid == searchOrderId.Value);
+                int prefixLength = searchOrderPrefix.Value.ToString().Length;
+                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid.ToString().StartsWith(searchOrderPrefix.Value.ToString().Substring(0, prefixLength)));
             }
 
             tEST_DOOContext = tEST_DOOContext.Include(o => o.Cust)
@@ -41,7 +42,7 @@ namespace AtanaCompanyWeb.Controllers
 
             var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);
 
-            ViewData["CurrentOrderID"] = searchOrderId;
+            ViewData["CurrentOrderPrefix"] = searchOrderPrefix;
 
             return View(paginatedList);
         }
