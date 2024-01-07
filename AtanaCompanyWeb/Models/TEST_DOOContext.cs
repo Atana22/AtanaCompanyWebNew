@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace AtanaCompanyWeb.Models
 {
@@ -504,6 +505,11 @@ namespace AtanaCompanyWeb.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+        }
+
+        internal IIncludableQueryable<Order, ICollection<OrderDetail>> Where(Func<object, bool> value)
+        {
+            throw new NotImplementedException();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

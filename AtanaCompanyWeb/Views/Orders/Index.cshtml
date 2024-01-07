@@ -26,21 +26,31 @@
         <div class="col-6 text-end">
             <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle-fill"> </i> &nbsp; Create New Order</a>
         </div>
+        <div>
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
+                Previous
+            </a>
+
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
+                Next
+            </a>
+        </div>
     </div>
 </div>
 
 
-<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
-    Previous
-</a>
+<div>
+    <form asp-action="Index" method="get">
+        <p>
+            <label for="searchOrderId">Search by OrderID:</label>
+            <input type="number" name="searchOrderId" value="@ViewData["CurrentOrderID"]" placeholder="Enter OrderID..." />
+            <input type="submit" value="Search" />
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </form>
+</div>
 
-<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
-    Next
-</a>
 
-<tr>
-
-</tr>
 
 <table class="table">
     <thead>
@@ -157,3 +167,4 @@
 <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
     Next
 </a>
+

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AtanaCompanyWeb.Models;
+using NuGet.Protocol.Core.Types;
+
 
 namespace AtanaCompanyWeb.Controllers
 {
@@ -19,15 +21,29 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index(int? pageNumber)
+        public async Task<IActionResult> Index(int? pageNumber, int? searchOrderId)
         {
-            int pageSize = 20;
+            int pageSize = 20; //broj linija po starni
 
-            var tEST_DOOContext = _context.Orders.Include(o => o.Cust).Include(o => o.Emp).Include(o => o.Shipper).Include(o => o.OrderDetails);
+            var tEST_DOOContext = _context.Orders.AsQueryable();
+
+            if (searchOrderId.HasValue && searchOrderId.Value != 0)
+            {
+                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid == searchOrderId.Value);
+            }
+
+            tEST_DOOContext = tEST_DOOContext.Include(o => o.Cust)
+                                     .Include(o => o.Emp)
+                                     .Include(o => o.Shipper)
+                                     .Include(o => o.OrderDetails);
 
             //return View(await tEST_DOOContext.ToListAsync());
 
-            return View(PaginatedList<Order>.Create(tEST_DOOContext.ToList(), pageNumber ?? 1, pageSize));
+            var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);
+
+            ViewData["CurrentOrderID"] = searchOrderId;
+
+            return View(paginatedList);
         }
 
         // GET: Orders/Details/5
