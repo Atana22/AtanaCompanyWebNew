@@ -23,7 +23,7 @@ namespace AtanaCompanyWeb.Controllers
         // GET: Orders
         public async Task<IActionResult> Index(int? pageNumber, int? searchOrderPrefix)
         {
-            int pageSize = 20; //broj linija po starni
+            int pageSize = 10; //broj linija po starni
 
             var tEST_DOOContext = _context.Orders.AsQueryable(); //mora sam da castujem tEST_DOOContext posto nije hteo da radi where, ako su pre njega INCLUDE
 
@@ -36,7 +36,9 @@ namespace AtanaCompanyWeb.Controllers
             tEST_DOOContext = tEST_DOOContext.Include(o => o.Cust)
                                      .Include(o => o.Emp)
                                      .Include(o => o.Shipper)
-                                     .Include(o => o.OrderDetails);
+                                     .Include(o => o.OrderDetails)
+                                     .OrderByDescending(o => o.Orderid);
+                                    
 
             //return View(await tEST_DOOContext.ToListAsync());
 
