@@ -81,13 +81,13 @@
                 Shipcity
             </th>
             <th>
-                Shipregion
-            </th>
-            <th>
                 Shippostalcode
             </th>
             <th>
                 Shipcountry
+            </th>
+            <th>
+                Orderstatus
             </th>
         </tr>
     </thead>
@@ -120,13 +120,13 @@
                     @Html.DisplayFor(modelItem => item.Shipcity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Shipregion)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Shippostalcode)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Shipcountry)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Orderstatus)
                 </td>
                 <td>
                     @* Ovde definisemo path za action metode iz contolera - asp-route-id *@
