@@ -42,8 +42,8 @@
 <div>
     <form asp-action="Index" method="get">
         <p>
-            <label for="searchOrderPrefix">Search by OrderID:</label>
-            <input type="number" name="searchOrderPrefix" value="@ViewData["CurrentOrderPrefix"]" placeholder="Enter OrderID..." />
+            <label for="searchString">Search by DATA:</label>
+            <input type="text" name="searchString" placeholder="Enter oID, City, Country..." />
             <input type="submit" value="Search" />
             <a asp-action="Index">Back to Full List</a>
         </p>

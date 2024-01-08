@@ -21,16 +21,21 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index(int? pageNumber, int? searchOrderPrefix)
+        public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
-            int pageSize = 10; //broj linija po starni
+            int pageSize = 25; //broj recorda linija po starni
 
             var tEST_DOOContext = _context.Orders.AsQueryable(); //mora sam da castujem tEST_DOOContext posto nije hteo da radi where, ako su pre njega INCLUDE
 
-            if (searchOrderPrefix.HasValue && searchOrderPrefix.Value != 0)
+            if (!String.IsNullOrEmpty(searchString)) 
             {
-                int prefixLength = searchOrderPrefix.Value.ToString().Length;
-                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid.ToString().StartsWith(searchOrderPrefix.Value.ToString().Substring(0, prefixLength)));
+
+                int prefixLength = searchString.ToString().Length;
+
+                tEST_DOOContext = tEST_DOOContext.Where(o => o.Shipcity.Contains(searchString) ||
+                                                        o.Shipcountry.Contains(searchString) ||
+                                                        o.Shipname.Contains(searchString) ||
+                                                        o.Orderid.ToString().StartsWith(searchString.ToString().Substring(0, prefixLength)));
             }
 
             tEST_DOOContext = tEST_DOOContext.Include(o => o.Cust)
@@ -44,7 +49,8 @@ namespace AtanaCompanyWeb.Controllers
 
             var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);
 
-            ViewData["CurrentOrderPrefix"] = searchOrderPrefix;
+       
+            
 
             return View(paginatedList);
         }
