@@ -53,11 +53,15 @@ namespace AtanaCompanyWeb.Controllers
                 return NotFound();
             }
 
+            //var order = await _context.Orders
+            //     .Include(o => o.OrderDetails)
+            //      .FirstOrDefaultAsync(m => m.Orderid == id);
+
             var order = await _context.Orders
                 .Include(o => o.Cust)  //we use the include method to combine the related entities in the same query, 
                 .Include(o => o.Emp)   //like merging multiple entities in a single query. https://www.educba.com/linq-include/
                 .Include(o => o.Shipper)
-                .FirstOrDefaultAsync(m => m.Orderid == id);
+                .Include(o => o.OrderDetails).FirstOrDefaultAsync(m => m.Orderid == id);
             if (order == null)
             {
                 return NotFound(); // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -118,13 +122,9 @@ namespace AtanaCompanyWeb.Controllers
                 return NotFound();
             }
 
-            //var order = await _context.Orders.FindAsync(id); //Find trazu vrednost na osnovu Primery Key, a ovde je Orderid je PK pa moze Find 
+            var order = await _context.Orders.FindAsync(id); //Find trazu vrednost na osnovu Primery Key, a ovde je Orderid je PK pa moze Find 
             //var orderFromDbFirst = _context.Orders.FirstOrDefaultAsync(u => u.Orderid == id);
             //var orderFromDbSingle = _context.Orders.SingleOrDefaultAsync(u => u.Orderid == id);
-
-            var order = await _context.Orders
-                 .Include(o => o.OrderDetails)
-                  .FirstOrDefaultAsync(m => m.Orderid == id);
 
             if (order == null)
             {
