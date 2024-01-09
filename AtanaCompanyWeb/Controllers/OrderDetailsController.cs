@@ -54,12 +54,14 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // POST: OrderDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Orderid,Productid,Unitprice,Qty,Discount")] OrderDetail orderDetail)
         {
+            ModelState.Remove("Order");
+            ModelState.Remove("Product");//izbacio sam ih iz modela za proveru, jer su suvisna
+
             if (ModelState.IsValid)
             {
                 _context.Add(orderDetail);
@@ -90,8 +92,6 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // POST: OrderDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Orderid,Productid,Unitprice,Qty,Discount")] OrderDetail orderDetail)
