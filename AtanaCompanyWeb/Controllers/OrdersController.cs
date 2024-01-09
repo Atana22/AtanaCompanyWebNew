@@ -82,6 +82,9 @@ namespace AtanaCompanyWeb.Controllers
             ViewData["Custid"] = new SelectList(_context.Customers, "Custid", "Custid");
             ViewData["Empid"] = new SelectList(_context.Employees, "Empid", "Empid");
             ViewData["Shipperid"] = new SelectList(_context.Shippers, "Shipperid", "Shipperid");
+
+            ViewData["Orderstatus"] = new SelectList(_context.Orders.Select(o => o.Orderstatus).Distinct().ToList());
+
             return View();
         }
 
@@ -89,7 +92,7 @@ namespace AtanaCompanyWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Orderid,Custid,Empid,Orderdate,Requireddate,Shippeddate,Shipperid,Freight,Shipname,Shipaddress,Shipcity,Shipregion,Shippostalcode,Shipcountry")] Order order)
+        public async Task<IActionResult> Create([Bind("Orderid,Custid,Empid,Orderdate,Requireddate,Shippeddate,Shipperid,Freight,Shipname,Shipaddress,Shipcity,Shipregion,Shippostalcode,Shipcountry,Orderstatus")] Order order)
         {
 
             if (order.Orderdate > order.Shippeddate) //custom error
@@ -110,6 +113,8 @@ namespace AtanaCompanyWeb.Controllers
             ViewData["Custid"] = new SelectList(_context.Customers, "Custid", "Custid", order.Custid); // SelectList je za dropdown vrednosti 
             ViewData["Empid"] = new SelectList(_context.Employees, "Empid", "Empid", order.Empid);
             ViewData["Shipperid"] = new SelectList(_context.Shippers, "Shipperid", "Shipperid", order.Shipperid);
+
+            ViewData["Orderstatus"] = new SelectList(_context.Orders.Select(o => o.Orderstatus).Distinct().ToList());
 
             return View(order);
         }
@@ -137,6 +142,8 @@ namespace AtanaCompanyWeb.Controllers
             ViewData["Empid"] = new SelectList(_context.Employees, "Empid", "Empid", order.Empid);
             ViewData["Shipperid"] = new SelectList(_context.Shippers, "Shipperid", "Shipperid", order.Shipperid);
 
+            ViewData["Orderstatus"] = new SelectList(_context.Orders.Select(o => o.Orderstatus).Distinct().ToList());
+
             return View(order);
         }
 
@@ -144,7 +151,7 @@ namespace AtanaCompanyWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Orderid,Custid,Empid,Orderdate,Requireddate,Shippeddate,Shipperid,Freight,Shipname,Shipaddress,Shipcity,Shipregion,Shippostalcode,Shipcountry")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Orderid,Custid,Empid,Orderdate,Requireddate,Shippeddate,Shipperid,Freight,Shipname,Shipaddress,Shipcity,Shipregion,Shippostalcode,Shipcountry,Orderstatus")] Order order)
         {
             if (id != order.Orderid)
             {
@@ -179,6 +186,7 @@ namespace AtanaCompanyWeb.Controllers
             ViewData["Custid"] = new SelectList(_context.Customers, "Custid", "Custid", order.Custid);
             ViewData["Empid"] = new SelectList(_context.Employees, "Empid", "Empid", order.Empid);
             ViewData["Shipperid"] = new SelectList(_context.Shippers, "Shipperid", "Shipperid", order.Shipperid);
+            ViewData["Orderstatus"] = new SelectList(_context.Orders.Select(o => o.Orderstatus).Distinct().ToList());
 
             return View(order);
         }

@@ -79,7 +79,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Orderstatus" class="control-label"></label>
-                <input asp-for="Orderstatus" class="form-control" />
+                <select asp-for="Orderstatus" class="form-control" asp-items="ViewBag.Orderstatus"></select>
                 <span asp-validation-for="Orderstatus" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-warning" style="width:120px">Update</button>
