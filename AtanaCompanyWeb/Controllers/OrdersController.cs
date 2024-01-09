@@ -32,25 +32,15 @@ namespace AtanaCompanyWeb.Controllers
 
                 int prefixLength = searchString.ToString().Length;
 
-                tEST_DOOContext = tEST_DOOContext.Where(o => o.Shipcity.Contains(searchString) ||
-                                                        o.Shipcountry.Contains(searchString) ||
-                                                        o.Shipname.Contains(searchString) ||
-                                                        o.Orderid.ToString().StartsWith(searchString.ToString().Substring(0, prefixLength)));
+                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid.ToString().StartsWith(searchString.ToString().Substring(0, prefixLength)));
             }
 
-            tEST_DOOContext = tEST_DOOContext.Include(o => o.Cust)
-                                     .Include(o => o.Emp)
-                                     .Include(o => o.Shipper)
-                                     .Include(o => o.OrderDetails)
-                                     .OrderByDescending(o => o.Orderid);
+            tEST_DOOContext = tEST_DOOContext.OrderByDescending(o => o.Orderid);
                                     
 
             //return View(await tEST_DOOContext.ToListAsync());
 
-            var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);
-
-       
-            
+            var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);        
 
             return View(paginatedList);
         }
@@ -128,10 +118,13 @@ namespace AtanaCompanyWeb.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders.FindAsync(id); //Find trazu vrednost na osnovu Primery Key, a ovde je Orderid je PK pa moze Find - https://github.com/dotnet/AspNetCore.Docs/issues/15498
+            //var order = await _context.Orders.FindAsync(id); //Find trazu vrednost na osnovu Primery Key, a ovde je Orderid je PK pa moze Find 
             //var orderFromDbFirst = _context.Orders.FirstOrDefaultAsync(u => u.Orderid == id);
             //var orderFromDbSingle = _context.Orders.SingleOrDefaultAsync(u => u.Orderid == id);
 
+            var order = await _context.Orders
+                 .Include(o => o.OrderDetails)
+                  .FirstOrDefaultAsync(m => m.Orderid == id);
 
             if (order == null)
             {

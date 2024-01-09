@@ -57,6 +57,6 @@ namespace AtanaCompanyWeb.Models
         public virtual Employee Emp { get; set; } = null!;
         public virtual Shipper Shipper { get; set; } = null!;
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        
+
     }
 }
