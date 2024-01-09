@@ -94,6 +94,31 @@
         </dd>
     </dl>
 </div>
+
+<h4>Order Details</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Discount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderDetail in Model.OrderDetails)
+        {
+            <tr>
+                <td>@orderDetail.Productid</td>
+                <td>@orderDetail.Unitprice</td>
+                <td>@orderDetail.Qty</td>
+                <td>@orderDetail.Discount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Orderid" style="width:120px"> </a> |
     <a asp-controller="Orders" asp-action="Index" class="btn btn-secondary" style="width:120">
