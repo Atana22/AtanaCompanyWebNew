@@ -30,13 +30,14 @@
         <div class="col-12 mt-2">
             <div class="d-flex justify-content-between">
                 <div>
-                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
+                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-searchString="@ViewData["SearchString"]" class="btn btn-default @prevDisabled">
                         Previous
                     </a>
 
-                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
+                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@ViewData["SearchString"]" class="btn btn-default @nextDisabled">
                         Next
                     </a>
+
                 </div>
 
                 <form asp-action="Index" method="get">
@@ -69,13 +70,12 @@
             <div class="input-group">
                   <input type="text" name="searchString" class="form-control" name="searchString" placeholder="Enter OrderId, City, Country, OrderStatus..." aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                   <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
         </div>
    </form>
 </div>
-
 
 
 <div class="col-12 mt-2">

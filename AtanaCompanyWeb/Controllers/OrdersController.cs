@@ -25,6 +25,7 @@ namespace AtanaCompanyWeb.Controllers
         {
             int pageSize = 25; //broj recorda linija po starni
 
+
             var tEST_DOOContext = _context.Orders.AsQueryable(); //mora sam da castujem tEST_DOOContext posto nije hteo da radi where, ako su pre njega INCLUDE
 
             if (!String.IsNullOrEmpty(searchString)) 
@@ -43,7 +44,10 @@ namespace AtanaCompanyWeb.Controllers
 
             //return View(await tEST_DOOContext.ToListAsync());
 
-            var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);        
+            var paginatedList = PaginatedList<Order>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);
+
+            ViewData["SearchString"] = searchString;
+         
 
             return View(paginatedList);
         }
