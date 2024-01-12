@@ -32,7 +32,10 @@ namespace AtanaCompanyWeb.Controllers
 
                 int prefixLength = searchString.ToString().Length;
 
-                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid.ToString().StartsWith(searchString.ToString().Substring(0, prefixLength)));
+                tEST_DOOContext = tEST_DOOContext.Where(o => o.Orderid.ToString().StartsWith(searchString.ToString().Substring(0, prefixLength))
+                                                       || o.Shipcity.Contains(searchString)
+                                                       || o.Shipcountry.Contains(searchString)
+                                                       || o.Orderstatus.Contains(searchString));
             }
 
             tEST_DOOContext = tEST_DOOContext.OrderByDescending(o => o.Orderid);

@@ -58,9 +58,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Password)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mgr)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -111,9 +108,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mgr.Empid)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Empid">Edit</a> |

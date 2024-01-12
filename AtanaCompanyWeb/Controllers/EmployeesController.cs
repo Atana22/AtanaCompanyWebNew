@@ -42,7 +42,7 @@ namespace AtanaCompanyWeb.Controllers
 
                 if (employee != null)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt");

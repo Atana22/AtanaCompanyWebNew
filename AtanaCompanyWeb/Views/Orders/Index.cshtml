@@ -26,34 +26,60 @@
         <div class="col-6 text-end">
             <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle-fill"> </i> &nbsp; Create New Order</a>
         </div>
-        <div>
-            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
-                Previous
-            </a>
 
-            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
-                Next
-            </a>
+        <div class="col-12 mt-2">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
+                        Previous
+                    </a>
+
+                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
+                        Next
+                    </a>
+                </div>
+
+                <form asp-action="Index" method="get">
+                    <p class="mb-0">
+                        <a asp-action="Index" class="btn btn-link">Back to Full List</a>
+                    </p>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 
-<div>
+
+
+@* <div>
     <form asp-action="Index" method="get">
         <p>
-            <label for="searchString">Search by DATA:</label>
+            <label for="searchString"></label>
             <input type="text" name="searchString" placeholder="Enter oID, City, Country..." />
-            <input type="submit" value="Search" />
-            <a asp-action="Index">Back to Full List</a>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a asp-action="Index" class="btn btn-link">Back to Full List</a>
         </p>
     </form>
+</div> *@
+
+<div class="container h-100">
+   <form asp-action="Index" method="get" class="w-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="input-group">
+                  <input type="text" name="searchString" class="form-control" name="searchString" placeholder="Enter OrderId, City, Country, OrderStatus..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                   <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+   </form>
 </div>
 
 
 
-
-<table class="table">
+<div class="col-12 mt-2">
+ <table class="table">
     <thead>
         <tr>
             <th>
@@ -138,8 +164,8 @@
             </tr>
         }
     </tbody>
-</table>
-
+ </table>
+</div>
 
 
 <a asp-action="Index" asp-route-pageNumber ="@(Model.PageIndex-1)" class ="btn btn-default @prevDisabled">
