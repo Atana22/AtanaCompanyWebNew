@@ -15,6 +15,7 @@ namespace AtanaCompanyWeb.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Administrator, User")]
         public IActionResult Index()
         {
             return View();

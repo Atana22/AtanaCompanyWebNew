@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AtanaCompanyWeb.Models;
 using NuGet.Protocol.Core.Types;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AtanaCompanyWeb.Controllers
@@ -21,6 +22,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
             int pageSize = 25; //broj recorda linija po starni

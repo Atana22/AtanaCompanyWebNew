@@ -1,4 +1,5 @@
 using AtanaCompanyWeb.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<TEST_DOOContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.AccessDeniedPath = "/Account/AccessDenied"; //ako nema prava user
+        options.LoginPath = "/Employees/Login";
+    });
+
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -26,6 +35,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
