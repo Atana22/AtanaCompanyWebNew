@@ -38,7 +38,7 @@ namespace AtanaCompanyWeb.Controllers
             if (ModelState.IsValid)
             {
                 var employee = await _context.Employees
-                    .FirstOrDefaultAsync(e => e.Login == model.Login && e.Password == model.Password && e.Team== model.Team.ToUpper());
+                    .FirstOrDefaultAsync(e => e.Login == model.Login && e.Password == model.Password && e.Roles == model.Roles.ToUpper());
 
                 if (employee != null)
                 {
@@ -83,7 +83,7 @@ namespace AtanaCompanyWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Empid,Lastname,Firstname,Title,Titleofcourtesy,Birthdate,Hiredate,Address,City,Region,Postalcode,Country,Email,Team,Mgrid,Login,Password")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Empid,Lastname,Firstname,Title,Titleofcourtesy,Birthdate,Hiredate,Address,City,Region,Postalcode,Country,Email,Roles,Mgrid,Login,Password")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace AtanaCompanyWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Empid,Lastname,Firstname,Title,Titleofcourtesy,Birthdate,Hiredate,Address,City,Region,Postalcode,Country,Email,Team,Mgrid,Login,Password")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Empid,Lastname,Firstname,Title,Titleofcourtesy,Birthdate,Hiredate,Address,City,Region,Postalcode,Country,Email,Roles,Mgrid,Login,Password")] Employee employee)
         {
             if (id != employee.Empid)
             {

@@ -24,7 +24,7 @@ namespace AtanaCompanyWeb.Models
         public string? Postalcode { get; set; }
         public string Country { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string? Team { get; set; }
+        public string? Roles { get; set; }
         public int? Mgrid { get; set; }
         public string? Login { get; set; }
         public string? Password { get; set; }

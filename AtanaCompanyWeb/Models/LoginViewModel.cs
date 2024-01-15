@@ -11,6 +11,6 @@ namespace AtanaCompanyWeb.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]
-        public string Team { get; set; }
+        public string Roles { get; set; }
     }
 }

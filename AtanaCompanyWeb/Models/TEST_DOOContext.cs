@@ -212,9 +212,9 @@ namespace AtanaCompanyWeb.Models
                     .HasMaxLength(15)
                     .HasColumnName("region");
 
-                entity.Property(e => e.Team)
+                entity.Property(e => e.Roles)
                     .HasMaxLength(24)
-                    .HasColumnName("team");
+                    .HasColumnName("roles");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(30)
