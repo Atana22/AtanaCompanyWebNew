@@ -12,5 +12,6 @@ namespace AtanaCompanyWeb.Models
         public string Password { get; set; }
         [Required]
         public string Roles { get; set; }
+
     }
 }

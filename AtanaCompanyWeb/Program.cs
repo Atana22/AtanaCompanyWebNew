@@ -30,6 +30,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); //ovde se deinise koju strnicu ce prvu da otvori kad se run app
+    pattern: "{controller=Employees}/{action=Login}/{id?}"); //ovde se deinise koju strnicu ce prvu da otvori kad se run app
 
 app.Run();
+

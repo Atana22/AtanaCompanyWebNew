@@ -51,6 +51,72 @@ namespace AtanaCompanyWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _context.Employees.FirstOrDefaultAsync(e => e.Email == model.Email && e.City == model.City);
+
+                if (user != null)
+                {
+                    return RedirectToAction("ResetPassword", "Employees");
+                }
+
+                ModelState.AddModelError(string.Empty, "The data do not exist in the database. Try again!");
+            }
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var employee = await _context.Employees
+                        .FirstOrDefaultAsync(e => e.Email == model.Email);
+
+                    if (employee != null)
+                    {
+                        employee.Password = model.NewPassword;
+
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "User not found.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                }
+            }
+
+            return View(model);
+        }
+
+
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -79,8 +145,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // POST: Employees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Empid,Lastname,Firstname,Title,Titleofcourtesy,Birthdate,Hiredate,Address,City,Region,Postalcode,Country,Email,Roles,Mgrid,Login,Password")] Employee employee)
