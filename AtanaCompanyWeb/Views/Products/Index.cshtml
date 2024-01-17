@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AtanaCompanyWeb.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Productname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unitprice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discontinued)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Productname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unitprice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discontinued)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Categoryid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier.Supplierid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Productid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Productid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Productid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

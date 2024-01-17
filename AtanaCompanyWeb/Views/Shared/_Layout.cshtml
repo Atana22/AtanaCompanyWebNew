@@ -24,11 +24,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orders</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sales</a>
                             <div class="dropdown-menu">
                                 <a class="nav-link text-regular" asp-area="" asp-controller="Orders" asp-action="Index">OrderTab</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="nav-link text-regular" asp-area="" asp-controller="OrderDetails" asp-action="Index">OrderDetailsTab</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-regular" asp-area="" asp-controller="Customers" asp-action="Index">CustomersTab</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-regular" asp-area="" asp-controller="Suppliers" asp-action="Index">SuppliersTab</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Production</a>
+                            <div class="dropdown-menu">
+                                <a class="nav-link text-regular" asp-area="" asp-controller="Categories" asp-action="Index">CategoriesTab</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-regular" asp-area="" asp-controller="Products" asp-action="Index">ProductsTab</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-regular" asp-area="" asp-controller="Suppliers" asp-action="Index">SuppliersTab</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
