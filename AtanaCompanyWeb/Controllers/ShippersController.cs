@@ -19,6 +19,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Shippers
+        [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index()
         {
               return _context.Shippers != null ? 

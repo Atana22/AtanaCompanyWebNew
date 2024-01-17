@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AtanaCompanyWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AtanaCompanyWeb.Controllers
 {
@@ -19,6 +20,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index()
         {
               return _context.Categories != null ? 

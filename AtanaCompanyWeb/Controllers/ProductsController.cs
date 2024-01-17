@@ -19,6 +19,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Products
+        [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index()
         {
             var tEST_DOOContext = _context.Products.Include(p => p.Category).Include(p => p.Supplier);
