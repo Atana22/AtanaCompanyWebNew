@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AtanaCompanyWeb.Models;
 using NuGet.Protocol.Core.Types;
 using Microsoft.AspNetCore.Authorization;
+using ClosedXML.Excel;
 
 
 namespace AtanaCompanyWeb.Controllers
@@ -22,7 +23,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
             int pageSize = 25; //broj recorda linija po starni
@@ -52,6 +53,60 @@ namespace AtanaCompanyWeb.Controllers
          
 
             return View(paginatedList);
+        }
+
+        public IActionResult ExcelExport()
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Orders");
+                var currentRow = 1;
+
+                #region Header
+                worksheet.Cell(currentRow, 1).Value = "Order ID";
+                worksheet.Cell(currentRow, 2).Value = "Orderdate";
+                worksheet.Cell(currentRow, 3).Value = "Requireddate";
+                worksheet.Cell(currentRow, 4).Value = "Shippeddate";
+                worksheet.Cell(currentRow, 5).Value = "Freight";
+                worksheet.Cell(currentRow, 6).Value = "Shipname";
+                worksheet.Cell(currentRow, 7).Value = "Shipaddress";
+                worksheet.Cell(currentRow, 8).Value = "Shipcity";
+                worksheet.Cell(currentRow, 9).Value = "Shippostalcode";
+                worksheet.Cell(currentRow, 10).Value = "Shipcountry";
+                worksheet.Cell(currentRow, 11).Value = "Orderstatus";
+                #endregion
+
+                #region Body
+
+                foreach (var orders in _context.Orders)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = orders.Orderid;
+                    worksheet.Cell(currentRow, 2).Value = orders.Orderdate;
+                    worksheet.Cell(currentRow, 3).Value = orders.Requireddate;
+                    worksheet.Cell(currentRow, 4).Value = orders.Shippeddate;
+                    worksheet.Cell(currentRow, 5).Value = orders.Freight;
+                    worksheet.Cell(currentRow, 6).Value = orders.Shipname;
+                    worksheet.Cell(currentRow, 7).Value = orders.Shipaddress;
+                    worksheet.Cell(currentRow, 8).Value = orders.Shipcity;
+                    worksheet.Cell(currentRow, 9).Value = orders.Shippostalcode;
+                    worksheet.Cell(currentRow, 10).Value = orders.Shipcountry;
+                    worksheet.Cell(currentRow, 11).Value = orders.Orderstatus;
+                }
+                #endregion
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Orders.xlsx"
+                        );
+                }
+            }
         }
 
         // GET: Orders/Details/5
