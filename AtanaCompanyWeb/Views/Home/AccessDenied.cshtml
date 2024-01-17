@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Access Denied!</h1>
+    <h2 class="display-4">The user role does not support this activity.</h2>
+    <h3 class="display-4">Please contact the Administrator!</h3>
+
+    <p>
+        If you have the necessary credentials, you can
+        <a asp-action="Login" asp-controller="Employees">log in here</a>.
+    </p>
+
+
+    <script>
+        function redirectToOriginal() {
+            var originalRequestUrl = '@ViewBag.OriginalRequestUrl';
+            if (originalRequestUrl) {
+                window.location.href = originalRequestUrl; 
+            } else {
+
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+        }
+    </script>
+</div>

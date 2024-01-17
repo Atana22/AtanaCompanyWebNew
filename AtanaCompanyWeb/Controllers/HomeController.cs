@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+
 
 namespace AtanaCompanyWeb.Controllers
 {
@@ -31,5 +33,14 @@ namespace AtanaCompanyWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult AccessDenied()
+        {
+            var returnUrl = Request.Query["ReturnUrl"].ToString();
+            ViewBag.OriginalRequestUrl = returnUrl;
+
+            return View();
+        }
+
     }
 }

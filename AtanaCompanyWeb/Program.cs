@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSession();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<TEST_DOOContext>(options => options.UseSqlServer(
@@ -13,7 +15,7 @@ builder.Services.AddDbContext<TEST_DOOContext>(options => options.UseSqlServer(
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.AccessDeniedPath = "/Account/AccessDenied"; //ako nema prava user
+        options.AccessDeniedPath = "/Home/AccessDenied"; //ako nema prava user
         options.LoginPath = "/Employees/Login";
     });
 
@@ -22,13 +24,15 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
