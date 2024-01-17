@@ -48,11 +48,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Productid)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+
+                <td>
+                    @* Ovde definisemo path za action metode iz contolera - asp-route-id *@
+
+                    <a asp-action="Edit" asp-route-id="@item.Orderid" class="bi bi-pencil-fill" style="width:50px"></a>
+                    <a asp-action="Details" asp-route-id="@item.Orderid" class="bi bi-journal-text" style="width:50px"></a>
+                    <a asp-action="Delete" asp-route-id="@item.Orderid" class="bi bi-trash3-fill" style="width:50px"></a>
+                </td>
         </tr>
 }
     </tbody>

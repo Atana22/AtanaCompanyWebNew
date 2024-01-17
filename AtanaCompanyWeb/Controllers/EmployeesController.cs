@@ -6,9 +6,9 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using AtanaCompanyWeb.Models;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Authentication;
+    using System.Security.Claims;
+    using Microsoft.AspNetCore.Authorization;
 
     namespace AtanaCompanyWeb.Controllers
     {
@@ -73,6 +73,12 @@ using Microsoft.AspNetCore.Authorization;
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
 

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using ClosedXML.Excel;
 
 
-namespace AtanaCompanyWeb.Controllers
+namespace AtanaCompanyWeb.Controllers     //sven password - zoya password
 {
     public class OrdersController : Controller
     {
@@ -22,7 +22,7 @@ namespace AtanaCompanyWeb.Controllers
             _context = context;
         }
 
-        // GET: Orders
+        // GET: Orders  
         [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
@@ -178,7 +178,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders/Edit/5
-
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Orders == null)
@@ -205,7 +205,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // POST: Orders/Edit/5
-
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Orderid,Custid,Empid,Orderdate,Requireddate,Shippeddate,Shipperid,Freight,Shipname,Shipaddress,Shipcity,Shipregion,Shippostalcode,Shipcountry,Orderstatus")] Order order)
@@ -249,6 +249,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Orders == null)
@@ -270,8 +271,10 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // POST: Orders/Delete/5
+        
         [HttpPost, ActionName("Delete")] // u View akcije se zove DELTE(<form asp-action="Delete">), a kod metoda se zove DeleteConfirmed, nece je preoznati
         [ValidateAntiForgeryToken]       // tako da preko ActionName("Delete") preminujemo akciju
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id) //ne moze Delete, mora drugi naziv (DeleteConfirmed)
         {
             if (_context.Orders == null)
@@ -279,13 +282,16 @@ namespace AtanaCompanyWeb.Controllers
                 return Problem("Entity set 'TEST_DOOContext.Orders'  is null.");
             }
             var order = await _context.Orders.FindAsync(id);
+
             if (order != null)
             {
                 _context.Orders.Remove(order);
             }
 
             await _context.SaveChangesAsync();
+
             TempData["success"] = "Order deleted successully!";
+
             return RedirectToAction(nameof(Index));
         }
 

@@ -353,6 +353,7 @@ namespace AtanaCompanyWeb.Models
                     .HasForeignKey(d => d.Productid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderDetails_Products");
+
             });
 
             modelBuilder.Entity<OrderTotalsByYear>(entity =>

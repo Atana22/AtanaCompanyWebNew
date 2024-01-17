@@ -24,7 +24,9 @@
         </div>
 
         <div class="col-6 text-end">
-            <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle-fill"> </i> &nbsp; Create New Order</a>
+            <a asp-action="Create" class="btn btn-warning">
+                <i class="bi bi-plus-circle-fill"></i> &nbsp; Create New Order
+            </a>
         </div>
 
         <div class="col-12 mt-2">
@@ -37,22 +39,23 @@
                     <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@ViewData["SearchString"]" class="btn btn-default @nextDisabled">
                         Next
                     </a>
-
                 </div>
 
-                <form asp-action="Index" method="get">
-                    <p class="mb-0">
-                        <a asp-action="Index" class="btn btn-link">Back to Full List</a>
-                    </p>
-                </form>
+                <div class="ml-auto">
+                    <a asp-action="Index" class="btn btn-link">Back to Full List</a>
+                </div>
+
+                <div class="ml-auto">
+                    <a asp-controller="Orders" asp-action="ExcelExport" class="btn btn-success" style="width: 150px">
+                        ExportExcel
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<a asp-controller="Orders" asp-action="ExcelExport" class="btn btn-success" style="width:150px">
-    ExportExcel
-</a>
+
 
 
 @* <div>

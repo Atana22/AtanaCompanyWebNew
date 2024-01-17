@@ -20,7 +20,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: OrderDetails
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index()
         {
             var tEST_DOOContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.Product);
@@ -76,6 +76,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: OrderDetails/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.OrderDetails == null)
@@ -92,7 +93,7 @@ namespace AtanaCompanyWeb.Controllers
             ViewData["Productid"] = new SelectList(_context.Products, "Productid", "Productid", orderDetail.Productid);
             return View(orderDetail);
         }
-
+        [Authorize(Roles = "Administrator")]
         // POST: OrderDetails/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,6 +130,7 @@ namespace AtanaCompanyWeb.Controllers
         }
 
         // GET: OrderDetails/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.OrderDetails == null)
@@ -151,6 +153,7 @@ namespace AtanaCompanyWeb.Controllers
         // POST: OrderDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.OrderDetails == null)
