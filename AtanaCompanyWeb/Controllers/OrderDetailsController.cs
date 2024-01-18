@@ -24,7 +24,7 @@ namespace AtanaCompanyWeb.Controllers
         [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
-            int pageSize = 25;
+            int pageSize = 10;
 
             var tEST_DOOContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.Product).AsQueryable();
 

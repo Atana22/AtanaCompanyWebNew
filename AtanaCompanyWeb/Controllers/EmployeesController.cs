@@ -26,7 +26,7 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
-            int pageSize = 25;
+            int pageSize = 10;
 
             var tEST_DOOContext = _context.Employees.AsQueryable();
 

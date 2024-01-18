@@ -26,7 +26,7 @@ namespace AtanaCompanyWeb.Controllers     //sven password - zoya password
         [Authorize(Roles = "Administrator, User")]
         public async Task<IActionResult> Index(int? pageNumber, string searchString)
         {
-            int pageSize = 25; //broj recorda linija po starni
+            int pageSize = 10; //broj recorda linija po starni
 
 
             var tEST_DOOContext = _context.Orders.AsQueryable(); //mora sam da castujem tEST_DOOContext posto nije hteo da radi where, ako su pre njega INCLUDE
