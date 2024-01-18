@@ -90,6 +90,14 @@ namespace AtanaCompanyWeb.Controllers
             }
         }
 
+        // GET: OrderDetails/Create
+        public IActionResult Create()
+        {
+            ViewData["Orderid"] = new SelectList(_context.Orders, "Orderid", "Orderid");
+            ViewData["Productid"] = new SelectList(_context.Products, "Productid", "Productid");
+            return View();
+        }
+
 
         // POST: OrderDetails/Create
 
