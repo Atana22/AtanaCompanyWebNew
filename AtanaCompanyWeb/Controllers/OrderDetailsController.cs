@@ -55,10 +55,11 @@ namespace AtanaCompanyWeb.Controllers
 
                 #region Header
                 worksheet.Cell(currentRow, 1).Value = "Order ID";
-                worksheet.Cell(currentRow, 2).Value = "Unitprice";
-                worksheet.Cell(currentRow, 3).Value = "Qty";
-                worksheet.Cell(currentRow, 4).Value = "Discount";
-                worksheet.Cell(currentRow, 5).Value = "Product";
+                worksheet.Cell(currentRow, 2).Value = "Product ID";
+                worksheet.Cell(currentRow, 3).Value = "Unitprice";
+                worksheet.Cell(currentRow, 4).Value = "Qty";
+                worksheet.Cell(currentRow, 5).Value = "Discount";
+                worksheet.Cell(currentRow, 6).Value = "TotalValue";
                 #endregion
 
                 #region Body
@@ -67,10 +68,11 @@ namespace AtanaCompanyWeb.Controllers
                 {
                     currentRow++;
                     worksheet.Cell(currentRow, 1).Value = orderDetails.Orderid;
-                    worksheet.Cell(currentRow, 2).Value = orderDetails.Unitprice;
-                    worksheet.Cell(currentRow, 3).Value = orderDetails.Qty;
-                    worksheet.Cell(currentRow, 4).Value = orderDetails.Discount;
-                    worksheet.Cell(currentRow, 5).Value = orderDetails.Productid;
+                    worksheet.Cell(currentRow, 2).Value = orderDetails.Productid;
+                    worksheet.Cell(currentRow, 3).Value = orderDetails.Unitprice;
+                    worksheet.Cell(currentRow, 4).Value = orderDetails.Qty;
+                    worksheet.Cell(currentRow, 5).Value = orderDetails.Discount;
+                    worksheet.Cell(currentRow, 6).Value = orderDetails.TotalValue;
                 }
                 #endregion
 

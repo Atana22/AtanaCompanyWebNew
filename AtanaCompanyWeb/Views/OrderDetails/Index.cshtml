@@ -68,6 +68,9 @@
                 OrderId
             </th>
             <th>
+                ProductId
+            </th>
+            <th>
                 Unitprice
             </th>
             <th>
@@ -77,9 +80,8 @@
                 Discount
             </th>
             <th>
-                Product
+                TotalValue
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -91,6 +93,9 @@
                 @Html.DisplayFor(modelItem => item.Order.Orderid)
             </td>
             <td>
+                    @Html.DisplayFor(modelItem => item.Product.Productid)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Unitprice)
             </td>
             <td>
@@ -100,8 +105,9 @@
                 @Html.DisplayFor(modelItem => item.Discount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.Productid)
+                @Html.DisplayFor(modelItem => item.TotalValue)
             </td>
+
 
                 <td>
                     @* Ovde definisemo path za action metode iz contolera - asp-route-id *@
