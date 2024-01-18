@@ -275,25 +275,27 @@ namespace AtanaCompanyWeb.Controllers     //sven password - zoya password
         [HttpPost, ActionName("Delete")] // u View akcije se zove DELTE(<form asp-action="Delete">), a kod metoda se zove DeleteConfirmed, nece je preoznati
         [ValidateAntiForgeryToken]       // tako da preko ActionName("Delete") preminujemo akciju
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> DeleteConfirmed(int id) //ne moze Delete, mora drugi naziv (DeleteConfirmed)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Orders == null)
-            {
-                return Problem("Entity set 'TEST_DOOContext.Orders'  is null.");
-            }
             var order = await _context.Orders.FindAsync(id);
 
-            if (order != null)
+            if (order == null)
             {
-                _context.Orders.Remove(order);
+                return NotFound();
             }
+
+            var orderDetails = _context.OrderDetails.Where(od => od.Orderid == id); //brise prvo povezane Order details
+            _context.OrderDetails.RemoveRange(orderDetails);
+
+            _context.Orders.Remove(order); //onda brise Order
 
             await _context.SaveChangesAsync();
 
-            TempData["success"] = "Order deleted successully!";
+            TempData["success"] = "Order deleted successfully!";
 
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool OrderExists(int id)
         {

@@ -68,7 +68,7 @@
                 OrderId
             </th>
             <th>
-                ProductId
+                Productname
             </th>
             <th>
                 Unitprice
@@ -93,7 +93,7 @@
                 @Html.DisplayFor(modelItem => item.Order.Orderid)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Product.Productid)
+                @Html.DisplayFor(modelItem => item.Product.Productname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Unitprice)
