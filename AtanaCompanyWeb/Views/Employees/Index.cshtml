@@ -1,62 +1,101 @@
-﻿@model IEnumerable<AtanaCompanyWeb.Models.Employee>
+﻿@model PaginatedList<Employee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Employees";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Employees list</h1>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Employees list</h1>
+        </div>
+
+        <div class="col-6 text-end">
+            <a asp-action="Create" class="btn btn-warning">
+                <i class="bi bi-plus-circle-fill"></i> &nbsp; Create New Order
+            </a>
+        </div>
+
+        <div class="col-12 mt-2">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-searchString="@ViewData["SearchString"]" class="btn btn-default @prevDisabled">
+                        Previous
+                    </a>
+
+                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-searchString="@ViewData["SearchString"]" class="btn btn-default @nextDisabled">
+                        Next
+                    </a>
+                </div>
+
+                <div class="ml-auto">
+                    <a asp-action="Index" class="btn btn-link">Back to Full List</a>
+                </div>
+
+                <div class="ml-auto">
+                    <a asp-controller="Employees" asp-action="ExcelExport" class="btn btn-success" style="width: 150px">
+                        ExportExcel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container h-100">
+    <form asp-action="Index" method="get" class="w-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="input-group">
+                <input type="text" name="searchString" class="form-control" name="searchString" placeholder="Enter EmpID" aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Lastname)
+                Lastname
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Firstname)
+                Firstname
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titleofcourtesy)
+                Hiredate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Birthdate)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hiredate)
+                City
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Country
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Region)
+                Roles
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Postalcode)
+                Login
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Roles)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Login)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
+                Password
             </th>
             <th></th>
         </tr>
@@ -74,12 +113,6 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Titleofcourtesy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Birthdate)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Hiredate)
             </td>
             <td>
@@ -87,12 +120,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Region)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Postalcode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
@@ -110,11 +137,19 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Empid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Empid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Empid">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Empid" class="bi bi-pencil-fill" style="width:50px"></a> 
+                    <a asp-action="Details" asp-route-id="@item.Empid" class="bi bi-journal-text" style="width:50px"></a> 
+                    <a asp-action="Delete" asp-route-id="@item.Empid" class="bi bi-trash3-fill" style="width:50px"></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">
+    Previous
+</a>
+
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">
+    Next
+</a>

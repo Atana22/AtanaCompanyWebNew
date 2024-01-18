@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authentication;
     using System.Security.Claims;
     using Microsoft.AspNetCore.Authorization;
+using ClosedXML.Excel;
 
     namespace AtanaCompanyWeb.Controllers
     {
@@ -23,13 +24,31 @@
 
         // GET: Employees
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber, string searchString)
+        {
+            int pageSize = 25;
+
+            var tEST_DOOContext = _context.Employees.AsQueryable();
+
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var tEST_DOOContext = _context.Employees;
-                return View(await tEST_DOOContext.ToListAsync());
+
+                int prefixLength = searchString.ToString().Length;
+
+                tEST_DOOContext = tEST_DOOContext.Where(o => o.Empid.ToString().StartsWith(searchString.ToString().Substring(0, prefixLength)));
             }
 
-            [HttpGet]
+            tEST_DOOContext = tEST_DOOContext.OrderByDescending(o => o.Empid);
+
+            var paginatedList = PaginatedList<Employee>.Create(await tEST_DOOContext.ToListAsync(), pageNumber ?? 1, pageSize);
+
+            ViewData["SearchString"] = searchString;
+
+            return View(paginatedList);
+        }
+
+        [HttpGet]
             public IActionResult Login()
             {
                 return View();
@@ -73,6 +92,66 @@
             }
 
             return View(model);
+        }
+
+        public IActionResult ExcelExport()
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Employees");
+                var currentRow = 1;
+
+                #region Header
+                worksheet.Cell(currentRow, 1).Value = "Employee ID";
+                worksheet.Cell(currentRow, 2).Value = "Lastname";
+                worksheet.Cell(currentRow, 3).Value = "Firstname";
+                worksheet.Cell(currentRow, 4).Value = "Title";
+                worksheet.Cell(currentRow, 5).Value = "Titleofcourtesy";
+                worksheet.Cell(currentRow, 6).Value = "Birthdate";
+                worksheet.Cell(currentRow, 7).Value = "Hiredate";
+                worksheet.Cell(currentRow, 8).Value = "Address";
+                worksheet.Cell(currentRow, 9).Value = "City";
+                worksheet.Cell(currentRow, 10).Value = "Country";
+                worksheet.Cell(currentRow, 11).Value = "Email";
+                worksheet.Cell(currentRow, 12).Value = "Roles";
+                worksheet.Cell(currentRow, 13).Value = "Login";
+                worksheet.Cell(currentRow, 14).Value = "Password";
+                #endregion
+
+                #region Body
+
+                foreach (var employee in _context.Employees)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = employee.Empid;
+                    worksheet.Cell(currentRow, 2).Value = employee.Lastname;
+                    worksheet.Cell(currentRow, 3).Value = employee.Firstname;
+                    worksheet.Cell(currentRow, 4).Value = employee.Title;
+                    worksheet.Cell(currentRow, 5).Value = employee.Titleofcourtesy;
+                    worksheet.Cell(currentRow, 6).Value = employee.Birthdate;
+                    worksheet.Cell(currentRow, 7).Value = employee.Hiredate;
+                    worksheet.Cell(currentRow, 8).Value = employee.Address;
+                    worksheet.Cell(currentRow, 9).Value = employee.City;
+                    worksheet.Cell(currentRow, 10).Value = employee.Country;
+                    worksheet.Cell(currentRow, 11).Value = employee.Email;
+                    worksheet.Cell(currentRow, 12).Value = employee.Roles;
+                    worksheet.Cell(currentRow, 13).Value = employee.Login;
+                    worksheet.Cell(currentRow, 14).Value = employee.Password;
+                }
+                #endregion
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Employees.xlsx"
+                        );
+                }
+            }
         }
 
         public async Task<IActionResult> Logout()
