@@ -23,15 +23,15 @@ namespace AtanaCompanyWeb.Models
         [DisplayName("Employer ID")]
         public int Empid { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Order DATE")]
         public DateTime Orderdate { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Require DATE")]
         public DateTime Requireddate { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Shipped DATE")]
         public DateTime? Shippeddate { get; set; } // nullable type - dozvoljava null vrednost
         [DisplayName("Shipper ID")]

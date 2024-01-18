@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Authentication;
     using System.Security.Claims;
     using Microsoft.AspNetCore.Authorization;
-using ClosedXML.Excel;
+    using ClosedXML.Excel;
 
     namespace AtanaCompanyWeb.Controllers
     {

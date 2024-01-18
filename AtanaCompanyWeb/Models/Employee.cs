@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AtanaCompanyWeb.Models
 {
@@ -16,7 +17,9 @@ namespace AtanaCompanyWeb.Models
         public string Firstname { get; set; } = null!;
         public string Title { get; set; } = null!;
         public string Titleofcourtesy { get; set; } = null!;
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Hiredate { get; set; }
         public string Address { get; set; } = null!;
         public string City { get; set; } = null!;
