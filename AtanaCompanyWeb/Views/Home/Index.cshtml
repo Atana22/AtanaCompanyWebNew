@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 text-center">
+        <div class="col-md-4 text-center">
             <h2 style="font-weight: bold; color: green;">Top Products - Top seller!</h2>
             <table class="table">
                 <thead>
@@ -32,7 +32,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-md-4 text-center">
             <h2 style="font-weight: bold; color: red;">Top Orders - Priority table!</h2>
             <table class="table">
                 <thead>
@@ -54,5 +54,27 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-md-4 text-center">
+            <h2 style="font-weight: bold; color: green;">Top Customers - Most orders!</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Company Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model.TopCustomers)
+                    {
+                        <tr>
+                            <td>@customer.OrderId</td>
+                            <td>@customer.CompanyName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>

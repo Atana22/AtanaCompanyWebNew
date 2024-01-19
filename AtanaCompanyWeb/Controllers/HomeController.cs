@@ -33,22 +33,32 @@ namespace AtanaCompanyWeb.Controllers
                                };
 
             var orderQuery = from orderDetail in _context.OrderDetails
-                             join order in _context.Orders on orderDetail.Orderid equals order.Orderid
-                             where order.Orderstatus == "Packed" || order.Orderstatus == "Preparing"
-                             group orderDetail by new { orderDetail.Orderid, order.Orderstatus } into grouped
-                             orderby grouped.Count() descending
-                             select new OrderViewModel
-                             {
-                                 OrderId = grouped.Key.Orderid,
-                                 Quantity = grouped.Count(),
-                                 OrderStatus = grouped.Key.Orderstatus
-                             };
+                     join order in _context.Orders on orderDetail.Orderid equals order.Orderid
+                     where order.Orderstatus == "Packed" || order.Orderstatus == "Preparing"
+                     group orderDetail by new { orderDetail.Orderid, order.Orderstatus } into grouped
+                     orderby grouped.Count() descending
+                     select new OrderViewModel
+                     {
+                         OrderId = grouped.Key.Orderid,
+                         Quantity = grouped.Count(),
+                         OrderStatus = grouped.Key.Orderstatus
+                     };
 
+            var customerQuery = from order in _context.Orders
+                                join customer in _context.Customers on order.Custid equals customer.Custid
+                                group order by customer.Companyname into grouped
+                                orderby grouped.Count() descending
+                                select new CustomerViewModel
+                                {
+                                    OrderId = grouped.Count(),
+                                    CompanyName = grouped.Key
+                                };
 
             var viewModel = new HomeViewModel
             {
                 TopProducts = productQuery.Take(10).ToList(),
-                TopOrders = orderQuery.Take(10).ToList()
+                TopOrders = orderQuery.Take(10).ToList(),
+                TopCustomers = customerQuery.Take(10).ToList()
             };
 
             return View(viewModel);
