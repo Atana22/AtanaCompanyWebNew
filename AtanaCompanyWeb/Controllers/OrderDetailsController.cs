@@ -204,25 +204,27 @@ namespace AtanaCompanyWeb.Controllers
             return View(orderDetail);
         }
 
-        // POST: OrderDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int orderId, int productId)
         {
             if (_context.OrderDetails == null)
             {
-                return Problem("Entity set 'TEST_DOOContext.OrderDetails'  is null.");
+                return Problem("Entity set 'TEST_DOOContext.OrderDetails' is null.");
             }
-            var orderDetail = await _context.OrderDetails.FindAsync(id);
+
+            var orderDetail = await _context.OrderDetails.FindAsync(orderId, productId); //salje dva ulazna parametra da bi znao tacno koji je orderDetails zeli da izbrise
+
             if (orderDetail != null)
             {
                 _context.OrderDetails.Remove(orderDetail);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool OrderDetailExists(int id)
         {
