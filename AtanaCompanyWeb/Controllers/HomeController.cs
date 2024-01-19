@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace AtanaCompanyWeb.Controllers
@@ -10,23 +11,49 @@ namespace AtanaCompanyWeb.Controllers
     
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly TEST_DOOContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(TEST_DOOContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         [Authorize(Roles = "Administrator, User")]
         public IActionResult Index()
         {
-            return View();
+            var productQuery = from orderDetail in _context.OrderDetails
+                               join product in _context.Products on orderDetail.Productid equals product.Productid
+                               group orderDetail by new { orderDetail.Productid, product.Productname } into grouped
+                               orderby grouped.Count() descending
+                               select new ProductViewModel
+                               {
+                                   ProductId = grouped.Key.Productid,
+                                   ProductName = grouped.Key.Productname,
+                                   Quantity = grouped.Count()
+                               };
+
+            var orderQuery = from orderDetail in _context.OrderDetails
+                             join order in _context.Orders on orderDetail.Orderid equals order.Orderid
+                             where order.Orderstatus == "Packed" || order.Orderstatus == "Preparing"
+                             group orderDetail by new { orderDetail.Orderid, order.Orderstatus } into grouped
+                             orderby grouped.Count() descending
+                             select new OrderViewModel
+                             {
+                                 OrderId = grouped.Key.Orderid,
+                                 Quantity = grouped.Count(),
+                                 OrderStatus = grouped.Key.Orderstatus
+                             };
+
+
+            var viewModel = new HomeViewModel
+            {
+                TopProducts = productQuery.Take(10).ToList(),
+                TopOrders = orderQuery.Take(10).ToList()
+            };
+
+            return View(viewModel);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
